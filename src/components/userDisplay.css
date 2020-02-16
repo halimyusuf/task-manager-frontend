@@ -1,0 +1,15 @@
+.user-display {
+    display: inline-block;
+    margin-bottom: 30px;
+    margin-right: 30px;
+}
+
+/* .user-display button {
+    width: 80%;
+} */
+
+.users-display {
+    max-width: 60%;
+    margin-left: 300px;
+    margin-top: 70px
+}

@@ -1,0 +1,4 @@
+{
+  "apiUrl": "http://localhost:5000/api/v1",
+  "herokuUrl": "https://halim-teamwork.herokuapp.com/api/v1"
+}

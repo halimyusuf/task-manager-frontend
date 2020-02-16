@@ -1,19 +1,10 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -21,18 +12,76 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+  color: rgb(230, 97, 97);
+} */
+
+
+
+
+.task-state,
+.task button {
+  padding: 4px 3px 4px 3px;
+}
+
+.task {}
+
+
+.auth-form {
+  padding-top: 10%;
+  padding-left: 35%;
+}
+
+.danger {
+  color: red;
+}
+
+button:disabled {
+  background: rgb(162, 224, 162);
+}
+
+/* .form-reg {
+  padding: 200px;
+} */
+
+input[type=text],
+input[type=password],
+input[type=date],
+select {
+  max-width: 400px;
+  padding: 15px;
+  /* margin: 5px 0 22px 0; */
+  /* display: inline-block; */
+  border-image: conic-gradient(rgb(25, 200, 23),
+      rgb(0, 128, 0),
+      magenta,
+      magenta,
+      magenta) 1;
+  background: #f1f1f1;
+}
+
+textarea {
+  min-width: 400px;
+  max-width: 400px;
+  min-height: 100px;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+button {
+  background-color: #4CAF50;
   color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 400px;
+  opacity: 0.9;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button:hover {
+  opacity: 1;
 }
