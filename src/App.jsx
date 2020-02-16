@@ -31,7 +31,12 @@ class App extends Component {
           <ProtectedRoute
             path="/"
             exact
-            render={props => <Home {...props} />}
+            component={props => <Home user={this.state.user} {...props} />}
+          />
+          <ProtectedRoute
+            path="/:user"
+            exact
+            component={props => <Home user={this.state.user} {...props} />}
           />
           <Route path="/login" exact render={props => <Login {...props} />} />
           <Route
@@ -42,13 +47,13 @@ class App extends Component {
           <ProtectedRoute
             path="/project/new"
             exact
-            render={props => (
+            component={props => (
               <ProjectForm users={this.state.users} {...props} />
             )}
           />
           <ProtectedRoute
             path="/project/:id"
-            render={props => (
+            component={props => (
               <ProjectForm users={this.state.users} {...props} />
             )}
           />

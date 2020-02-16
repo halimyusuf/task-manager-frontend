@@ -21,13 +21,20 @@ class Home extends Form {
 
   schema = getTaskSchema();
   async componentDidMount() {
+    const user = this.props.match.params.user;
     try {
-      console.log("again");
-      const projects = await http.getAllProjects();
+      // console.log("again");
+      let projects = await http.getAllProjects();
       const tasks = await http.getTasks();
-      console.log(projects.data);
+      // console.log(projects.data);
+      projects = projects.data;
+      if (user) {
+        projects = projects.filter(
+          project => project.owner !== this.props.user._id
+        );
+      }
       this.setState({
-        projects: projects.data,
+        projects: projects,
         tasks: tasks.data
       });
     } catch (error) {}
@@ -38,9 +45,9 @@ class Home extends Form {
     const { taskDescription: description } = this.state.data;
     try {
       const data = { description, project };
-      console.log(data);
+      // console.log(data);
       const response = await http.postTask(data);
-      console.log("posted", response);
+      // console.log("posted", response);
       this.getTasks(project);
       this.setState({
         data: { taskDescription: "" },

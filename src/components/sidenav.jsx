@@ -52,7 +52,7 @@ class SideNav extends Component {
               <Link to="/" className="w3-bar-item w3-button">
                 All Projects
               </Link>
-              <Link to="#" className="w3-bar-item w3-button">
+              <Link to="/my-projects" className="w3-bar-item w3-button">
                 My Projects
               </Link>
             </div>

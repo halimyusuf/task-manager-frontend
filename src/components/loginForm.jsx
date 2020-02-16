@@ -18,7 +18,8 @@ class Login extends Form {
     try {
       const response = await auth.login(this.state.data);
       loginWithJwt(response.headers["todo-auth-token"]);
-      window.location = "/";
+      // console.log("eyahah");
+      this.props.history.push("/");
     } catch (error) {
       const { response: err } = error;
       let errors = { ...this.state.errors };

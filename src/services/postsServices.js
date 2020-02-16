@@ -13,6 +13,7 @@ export function getProject(id) {
     return http.get(`${apiUrl}/project/${id}`)
 }
 
+
 export function saveProject(project) {
     if (project._id) {
         const projectClone = {

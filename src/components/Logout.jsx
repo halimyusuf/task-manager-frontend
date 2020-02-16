@@ -2,7 +2,7 @@ import { removeToken } from "../services/authServices";
 
 const Logout = () => {
   removeToken();
-  window.location = "/login";
+  this.props.history.push("/");
 };
 
 export default Logout;
