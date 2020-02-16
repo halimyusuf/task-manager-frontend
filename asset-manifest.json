@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/task-manager/static/css/main.ad1d4fb2.chunk.css",
+    "main.js": "/task-manager/static/js/main.cf5a4c56.chunk.js",
+    "main.js.map": "/task-manager/static/js/main.cf5a4c56.chunk.js.map",
+    "runtime-main.js": "/task-manager/static/js/runtime-main.1eb68522.js",
+    "runtime-main.js.map": "/task-manager/static/js/runtime-main.1eb68522.js.map",
+    "static/css/2.7a29d18c.chunk.css": "/task-manager/static/css/2.7a29d18c.chunk.css",
+    "static/js/2.2ad70a55.chunk.js": "/task-manager/static/js/2.2ad70a55.chunk.js",
+    "static/js/2.2ad70a55.chunk.js.map": "/task-manager/static/js/2.2ad70a55.chunk.js.map",
+    "index.html": "/task-manager/index.html",
+    "precache-manifest.5f540d0695c0930923be508d4fbb9d65.js": "/task-manager/precache-manifest.5f540d0695c0930923be508d4fbb9d65.js",
+    "service-worker.js": "/task-manager/service-worker.js",
+    "static/css/2.7a29d18c.chunk.css.map": "/task-manager/static/css/2.7a29d18c.chunk.css.map",
+    "static/css/main.ad1d4fb2.chunk.css.map": "/task-manager/static/css/main.ad1d4fb2.chunk.css.map",
+    "static/js/2.2ad70a55.chunk.js.LICENSE.txt": "/task-manager/static/js/2.2ad70a55.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.css": "/task-manager/static/media/fontawesome-webfont.fee66e71.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1eb68522.js",
+    "static/css/2.7a29d18c.chunk.css",
+    "static/js/2.2ad70a55.chunk.js",
+    "static/css/main.ad1d4fb2.chunk.css",
+    "static/js/main.cf5a4c56.chunk.js"
+  ]
+}
