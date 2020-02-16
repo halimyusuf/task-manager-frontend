@@ -1,5 +1,5 @@
 {
-  "apiUrl": "http://task-manager-todo.herokuapp.com/api/v1",
-  "herokuUrl": "http://task-manager-todo.herokuapp.com/api/v1",
-  "localUrl": "http://localhost:5000/api/v1"
+  "apiUrl": "https://task-manager-todo.herokuapp.com/api/v1",
+  "herokuUrl": "https://task-manager-todo.herokuapp.com/api/v1",
+  "localUrl": "https://localhost:5000/api/v1"
 }
