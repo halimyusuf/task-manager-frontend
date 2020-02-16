@@ -2,6 +2,7 @@ import React from "react";
 import auth, { loginWithJwt } from "../services/authServices";
 import { getLoginSchema } from "../services/formSchema";
 import Form from "./common/form";
+import { Link } from "react-router-dom";
 
 class Login extends Form {
   state = {
@@ -45,6 +46,7 @@ class Login extends Form {
             {this.inputField("password", "Password")}
             {this.renderButton("Login")}
           </form>
+          <Link to="/register">Register</Link>
         </div>
       </React.Fragment>
     );
