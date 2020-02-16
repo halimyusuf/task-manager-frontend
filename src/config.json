@@ -1,4 +1,5 @@
 {
-  "apiUrl": "http://localhost:5000/api/v1",
-  "herokuUrl": "https://halim-teamwork.herokuapp.com/api/v1"
+  "apiUrl": "http://task-manager-todo.herokuapp.com/api/v1",
+  "herokuUrl": "http://task-manager-todo.herokuapp.com/api/v1",
+  "localUrl": "http://localhost:5000/api/v1"
 }
