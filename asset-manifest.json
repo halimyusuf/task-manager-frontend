@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/task-manager-frontend/static/css/main.ad1d4fb2.chunk.css",
-    "main.js": "/task-manager-frontend/static/js/main.be116b38.chunk.js",
-    "main.js.map": "/task-manager-frontend/static/js/main.be116b38.chunk.js.map",
-    "runtime-main.js": "/task-manager-frontend/static/js/runtime-main.4a263181.js",
-    "runtime-main.js.map": "/task-manager-frontend/static/js/runtime-main.4a263181.js.map",
-    "static/css/2.6eca9291.chunk.css": "/task-manager-frontend/static/css/2.6eca9291.chunk.css",
-    "static/js/2.0fa12130.chunk.js": "/task-manager-frontend/static/js/2.0fa12130.chunk.js",
-    "static/js/2.0fa12130.chunk.js.map": "/task-manager-frontend/static/js/2.0fa12130.chunk.js.map",
-    "index.html": "/task-manager-frontend/index.html",
-    "precache-manifest.bc57e69d270666f821383bb845b00dd2.js": "/task-manager-frontend/precache-manifest.bc57e69d270666f821383bb845b00dd2.js",
-    "service-worker.js": "/task-manager-frontend/service-worker.js",
-    "static/css/2.6eca9291.chunk.css.map": "/task-manager-frontend/static/css/2.6eca9291.chunk.css.map",
-    "static/css/main.ad1d4fb2.chunk.css.map": "/task-manager-frontend/static/css/main.ad1d4fb2.chunk.css.map",
-    "static/js/2.0fa12130.chunk.js.LICENSE.txt": "/task-manager-frontend/static/js/2.0fa12130.chunk.js.LICENSE.txt",
-    "static/media/font-awesome.css": "/task-manager-frontend/static/media/fontawesome-webfont.fee66e71.woff"
+    "main.css": "/static/css/main.ad1d4fb2.chunk.css",
+    "main.js": "/static/js/main.776b87dc.chunk.js",
+    "main.js.map": "/static/js/main.776b87dc.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.890a246d.js",
+    "runtime-main.js.map": "/static/js/runtime-main.890a246d.js.map",
+    "static/css/2.12ad4f0c.chunk.css": "/static/css/2.12ad4f0c.chunk.css",
+    "static/js/2.0fa12130.chunk.js": "/static/js/2.0fa12130.chunk.js",
+    "static/js/2.0fa12130.chunk.js.map": "/static/js/2.0fa12130.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.ca1e90d89b1c2d61a88bcb4ebd675323.js": "/precache-manifest.ca1e90d89b1c2d61a88bcb4ebd675323.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.12ad4f0c.chunk.css.map": "/static/css/2.12ad4f0c.chunk.css.map",
+    "static/css/main.ad1d4fb2.chunk.css.map": "/static/css/main.ad1d4fb2.chunk.css.map",
+    "static/js/2.0fa12130.chunk.js.LICENSE.txt": "/static/js/2.0fa12130.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.css": "/static/media/fontawesome-webfont.fee66e71.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.4a263181.js",
-    "static/css/2.6eca9291.chunk.css",
+    "static/js/runtime-main.890a246d.js",
+    "static/css/2.12ad4f0c.chunk.css",
     "static/js/2.0fa12130.chunk.js",
     "static/css/main.ad1d4fb2.chunk.css",
-    "static/js/main.be116b38.chunk.js"
+    "static/js/main.776b87dc.chunk.js"
   ]
 }
