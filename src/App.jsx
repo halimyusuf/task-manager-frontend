@@ -11,9 +11,7 @@ import SideNav from "./components/sidenav";
 import ProtectedRoute from "./components/common/protectedRoute";
 
 class App extends Component {
-  state = {
-    users: []
-  };
+  state = {};
   async componentDidMount() {
     const user = getCurrentUser();
     if (user)
@@ -43,20 +41,18 @@ class App extends Component {
             path="/project/new"
             exact
             component={props => (
-              <ProjectForm users={this.state.users} {...props} />
+              <ProjectForm user={this.state.user} {...props} />
             )}
           />
           <ProtectedRoute
             path="/project/:id"
             component={props => (
-              <ProjectForm users={this.state.users} {...props} />
+              <ProjectForm user={this.state.user} {...props} />
             )}
           />
           <ProtectedRoute
             path="/users"
-            render={props => (
-              <UserDisplay users={this.state.users} {...props} />
-            )}
+            render={props => <UserDisplay user={this.state.user} {...props} />}
           />
           <ProtectedRoute
             path="/:user"

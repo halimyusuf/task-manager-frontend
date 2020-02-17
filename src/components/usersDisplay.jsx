@@ -25,6 +25,7 @@ class UserDisplay extends Component {
   };
   render() {
     const { users } = this.state;
+    const { user: userId } = this.props;
     return (
       <div className="users-display">
         {users.map(user => (
@@ -32,12 +33,13 @@ class UserDisplay extends Component {
             <h4>Name: {user.name}</h4>
             <p>Email: {user.email}</p>
             <p>Position: {user.position} </p>
-            {user.approved || (
+            {}
+            {userId.isAdmin && !user.approved && (
               <button onClick={() => this.handleApprove(user._id)}>
                 Approve
               </button>
             )}
-            {!user.approved || (
+            {userId.isAdmin && user.approved && (
               <button onClick={() => this.handleApprove(user._id)}>
                 Revoke access
               </button>

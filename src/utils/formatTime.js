@@ -6,7 +6,7 @@ export function getDate(date) {
 
 
 export function daysLeft(date1, date2) {
-    date1 = new Date(date1)
+    date1 = new Date()
     date2 = new Date(date2)
     const difference = date2.getTime() - date1.getTime()
     return Math.round(difference / (1000 * 3600 * 24))

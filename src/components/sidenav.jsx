@@ -60,11 +60,10 @@ class SideNav extends Component {
               </Link>
             </div>
           </div>
-          {user.isAdmin && (
-            <Link to="/users" className="w3-bar-item w3-button">
-              Users
-            </Link>
-          )}
+
+          <Link to="/users" className="w3-bar-item w3-button">
+            Users
+          </Link>
 
           <Link to="" className="w3-button" onClick={Logout}>
             Logout
