@@ -33,11 +33,6 @@ class App extends Component {
             exact
             component={props => <Home user={this.state.user} {...props} />}
           />
-          <ProtectedRoute
-            path="/:user"
-            exact
-            component={props => <Home user={this.state.user} {...props} />}
-          />
           <Route path="/login" exact render={props => <Login {...props} />} />
           <Route
             path="/register"
@@ -62,6 +57,11 @@ class App extends Component {
             render={props => (
               <UserDisplay users={this.state.users} {...props} />
             )}
+          />
+          <ProtectedRoute
+            path="/:user"
+            exact
+            component={props => <Home user={this.state.user} {...props} />}
           />
         </Switch>
       </div>

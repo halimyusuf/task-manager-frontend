@@ -4,13 +4,13 @@ import "./index.css";
 import App from "./App";
 import "font-awesome/css/font-awesome.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-  <BrowserRouter>
+  <HashRouter>
     <App />{" "}
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById("root")
 );
 
