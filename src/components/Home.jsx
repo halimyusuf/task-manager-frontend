@@ -28,9 +28,9 @@ class Home extends Form {
       const tasks = await http.getTasks();
       // console.log(projects.data);
       projects = projects.data;
-      if (user) {
+      if (user === "my-projects") {
         projects = projects.filter(
-          project => project.owner !== this.props.user._id
+          project => project.owner._id === this.props.user._id
         );
       }
       this.setState({
@@ -115,21 +115,22 @@ class Home extends Form {
     });
   };
 
-  renderTasks = id => {
+  renderTasks = (id, owner) => {
     let { tasks, newTaskForm } = this.state;
+    const { user } = this.props;
     tasks = tasks.filter(task => task.project === id);
     return (
       <div>
         <h4>
           {/* tasks head */}
           Tasks &emsp;
-          {!newTaskForm && (
+          {user.isAdmin && !newTaskForm && (
             <i
               onClick={() => this.handleNewTask(id)}
               className="fa fa-plus"
             ></i>
           )}
-          {newTaskForm && (
+          {user.isAdmin && newTaskForm && (
             <i
               onClick={() => this.handleNewTask(id)}
               className="fa fa-minus"
@@ -139,7 +140,7 @@ class Home extends Form {
         {/* tasks head ends here */}
 
         {/* if no task is present */}
-        {tasks.length == 0 && "No task, please add task"}
+        {tasks.length == 0 && "No task yet"}
 
         {/* renders projects tasks */}
         {tasks.map(task => (
@@ -150,9 +151,11 @@ class Home extends Form {
               {!task.done && (
                 <span>
                   <small style={{ color: "red" }}>Pending</small>
-                  <button onClick={() => this.handleDone(task._id, "done")}>
-                    Done
-                  </button>
+                  {user._id === owner && (
+                    <button onClick={() => this.handleDone(task._id, "done")}>
+                      Done
+                    </button>
+                  )}
                 </span>
               )}
               {/* if task is done show text done and button undo */}
@@ -161,15 +164,19 @@ class Home extends Form {
                   <i className="fa fa-check">
                     <small>Done</small>
                   </i>
-                  <button onClick={() => this.handleDone(task._id, "undo")}>
-                    Undo
-                  </button>
+                  {user._id === owner && (
+                    <button onClick={() => this.handleDone(task._id, "undo")}>
+                      Undo
+                    </button>
+                  )}
                 </span>
               )}
-              <i
-                onClick={() => this.handleTaskDelete(task._id)}
-                className="fa fa-trash-o"
-              ></i>
+              {user._id === owner && (
+                <i
+                  onClick={() => this.handleTaskDelete(task._id)}
+                  className="fa fa-trash-o"
+                ></i>
+              )}
             </p>
           </div>
         ))}
@@ -195,10 +202,11 @@ class Home extends Form {
 
   render() {
     const { projects, newTaskForm } = this.state;
+    const { user } = this.props;
     return (
       <div className="all-projects">
         {/* <h2>Wecome home</h2> */}
-
+        {projects.length === 0 && <p>No project</p>}
         {projects.map(project => {
           const startDate = getDate(project.startDate);
           const endDate = getDate(project.endDate);
@@ -217,17 +225,22 @@ class Home extends Form {
               <p>Days left: &ensp;{days}</p>
               <p>Owner: {project.owner.name} </p>
               <p>description: &nbsp; {project.description}</p>
-              <Link to={`/project/${project._id}`}>
-                {" "}
-                <i className="fa fa-pencil-square-o"></i>{" "}
-              </Link>
-              <i
-                onClick={() => this.deleteProj(project._id)}
-                className="fa fa-trash-o"
-              ></i>{" "}
+              {user.isAdmin && (
+                <React.Fragment>
+                  <Link to={`/project/${project._id}`}>
+                    {" "}
+                    <i className="fa fa-pencil-square-o"></i>{" "}
+                  </Link>
+                  <i
+                    onClick={() => this.deleteProj(project._id)}
+                    className="fa fa-trash-o"
+                  ></i>
+                </React.Fragment>
+              )}
+
               {/* Tasks */}
               {/* function to get tasks */}
-              {this.renderTasks(project._id)}
+              {this.renderTasks(project._id, project.owner._id)}
               {newTaskForm && this.renderTaskForm()}
             </div>
           );

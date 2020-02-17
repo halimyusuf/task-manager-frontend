@@ -32,6 +32,7 @@ class SideNav extends Component {
     }
   }
   render() {
+    const { user } = this.props;
     return (
       <div>
         <div
@@ -46,9 +47,11 @@ class SideNav extends Component {
               id="demoDrop"
               className="w3-dropdown-content w3-bar-block w3-white w3-card"
             >
-              <Link to="/project/new" className="w3-bar-item w3-button">
-                New Project
-              </Link>
+              {user.isAdmin && (
+                <Link to="/project/new" className="w3-bar-item w3-button">
+                  New Project
+                </Link>
+              )}
               <Link to="/" className="w3-bar-item w3-button">
                 All Projects
               </Link>
@@ -57,9 +60,12 @@ class SideNav extends Component {
               </Link>
             </div>
           </div>
-          <Link to="/users" className="w3-bar-item w3-button">
-            Users
-          </Link>
+          {user.isAdmin && (
+            <Link to="/users" className="w3-bar-item w3-button">
+              Users
+            </Link>
+          )}
+
           <Link to="" className="w3-button" onClick={Logout}>
             Logout
           </Link>
