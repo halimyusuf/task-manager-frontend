@@ -14,7 +14,6 @@ class Form extends Component {
     const result = Joi.validate(this.state.data, this.schema, {
       abortEarly: false
     });
-    // console.log(result);
     if (!result.error) return null;
     const errors = {};
     for (let item of result.error.details) {
@@ -53,7 +52,6 @@ class Form extends Component {
     else delete errors[input.name];
     const data = { ...this.state.data };
     data[input.name] = value;
-    // console.log(this.state);
     this.setState({
       data,
       errors

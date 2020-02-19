@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Logout from "./Logout";
+import Logout from "./logout";
 class SideNav extends Component {
   state = {};
 
@@ -39,9 +39,11 @@ class SideNav extends Component {
           className="w3-sidebar w3-bar-block w3-light-grey w3-card"
           style={{ width: "160px", position: "fixed", top: "0" }}
         >
+          <h6>{user.name}</h6>
           <div className="w3-dropdown-click">
             <button className="w3-button" onClick={this.myDropFunc}>
-              Projects <i className="fa fa-caret-down"></i>
+              <i className="fa fa-project"></i> Projects{" "}
+              <i className="fa fa-caret-down"></i>
             </button>
             <div
               id="demoDrop"
@@ -62,11 +64,11 @@ class SideNav extends Component {
           </div>
 
           <Link to="/users" className="w3-bar-item w3-button">
-            Users
+            <i className="fa fa-users"></i> Users
           </Link>
 
           <Link to="" className="w3-button" onClick={Logout}>
-            Logout
+            <i className="fa fa-sign-out"></i>Logout
           </Link>
         </div>
       </div>

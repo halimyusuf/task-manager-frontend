@@ -7,25 +7,35 @@ class UserDisplay extends Component {
     users: []
   };
   async componentDidMount() {
+    this.getUsers();
+  }
+
+  getUsers = async () => {
     try {
       const users = await http.getUsers();
-      console.log(users.data);
       this.setState({
         users: users.data
       });
     } catch (error) {}
-  }
+  };
 
   handleApprove = async id => {
     try {
       const approve = await http.approveUser(id);
-      console.log(approve);
       this.componentDidMount();
+    } catch (error) {}
+  };
+
+  handleUserDel = async id => {
+    try {
+      await http.deleteUser(id);
+      this.getUsers();
     } catch (error) {}
   };
   render() {
     const { users } = this.state;
-    const { user: userId } = this.props;
+    let { user: userId } = this.props;
+    userId = userId === undefined ? {} : userId;
     return (
       <div className="users-display">
         {users.map(user => (
@@ -33,15 +43,24 @@ class UserDisplay extends Component {
             <h4>Name: {user.name}</h4>
             <p>Email: {user.email}</p>
             <p>Position: {user.position} </p>
-            {}
             {userId.isAdmin && !user.approved && (
-              <button onClick={() => this.handleApprove(user._id)}>
-                Approve
-              </button>
+              <React.Fragment>
+                <button onClick={() => this.handleApprove(user._id)}>
+                  Approve
+                </button>
+              </React.Fragment>
             )}
             {userId.isAdmin && user.approved && (
               <button onClick={() => this.handleApprove(user._id)}>
                 Revoke access
+              </button>
+            )}
+            {userId.isAdmin && (
+              <button
+                className="delete"
+                onClick={() => this.handleUserDel(user._id)}
+              >
+                Delete
               </button>
             )}
           </div>

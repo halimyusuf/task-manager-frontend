@@ -1,6 +1,5 @@
 import React from "react";
 import { getProjectSchema } from "../services/formSchema";
-import { getFormDate } from "../utils/formatTime";
 import Form from "./common/form";
 import * as http from "../services/postsServices";
 
@@ -26,7 +25,6 @@ class ProjectForm extends Form {
       const id = this.props.match.params.id;
       if (id) {
         let project = await http.getProject(id);
-        console.log("project", project);
         project = project.data;
         if (project) {
           const data = { ...this.state.data };
@@ -52,19 +50,14 @@ class ProjectForm extends Form {
       }
     } catch (error) {
       const { response: err } = error;
-      console.log(err);
     }
   }
   schema = getProjectSchema();
   doSubmit = async () => {
     try {
       const response = await http.saveProject(this.state.data);
-      console.log(response);
-      console.log("submitted");
       this.props.history.push("/");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
     //   toast.error("Unexpected error");
   };
 

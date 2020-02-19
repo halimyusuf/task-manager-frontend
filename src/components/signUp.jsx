@@ -18,7 +18,6 @@ class SignUp extends Form {
   schema = getSignUpSchema();
 
   async doSubmit() {
-    console.log("submitted");
     try {
       await auth.register(this.state.data);
       this.props.history.push("/login");

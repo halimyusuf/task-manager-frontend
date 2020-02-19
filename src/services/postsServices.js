@@ -1,68 +1,67 @@
-import http from "./httpServices"
-import {
-    apiUrl
-} from "../config.json"
-
+import http from "./httpServices";
+import { apiUrl } from "../config.json";
 
 // Projects
 export function getAllProjects() {
-    return http.get(`${apiUrl}/project/all`)
+  return http.get(`${apiUrl}/project/all`);
 }
 
 export function getProject(id) {
-    return http.get(`${apiUrl}/project/${id}`)
+  return http.get(`${apiUrl}/project/${id}`);
 }
 
-
 export function saveProject(project) {
-    if (project._id) {
-        const projectClone = {
-            ...project
-        }
-        delete projectClone._id
-        return http.patch(`${apiUrl}/project/${project._id}`, projectClone)
-    }
-    return http.post(`${apiUrl}/project`, project)
+  if (project._id) {
+    const projectClone = {
+      ...project
+    };
+    delete projectClone._id;
+    return http.patch(`${apiUrl}/project/${project._id}`, projectClone);
+  }
+  return http.post(`${apiUrl}/project`, project);
 }
 
 export function deleteProject(id) {
-    return http.delete(`${apiUrl}/project/${id}`)
+  return http.delete(`${apiUrl}/project/${id}`);
 }
 
 // User
 export function approveUser(id) {
-    return http.patch(`${apiUrl}/user/${id}/approve`)
+  return http.patch(`${apiUrl}/user/${id}/approve`);
 }
 
 export function getUsers() {
-    return http.get(`${apiUrl}/user/all`)
+  return http.get(`${apiUrl}/user/all`);
 }
 
-
-
+export function deleteUser(id) {
+  return http.delete(`${apiUrl}/user/${id}`);
+}
+export function getUser(id) {
+  return http.get(`${apiUrl}/user/${id}`);
+}
 
 // Task
 export function postTask(data) {
-    return http.post(`${apiUrl}/task`, data)
+  return http.post(`${apiUrl}/task`, data);
 }
 
 export function getTasks(id) {
-    return http.get(`${apiUrl}/task/${id}`)
+  return http.get(`${apiUrl}/task/${id}`);
 }
 
 export function deleteTask(id) {
-    return http.delete(`${apiUrl}/task/${id}`)
+  return http.delete(`${apiUrl}/task/${id}`);
 }
 export function markDone(id) {
-    return http.patch(`${apiUrl}/task/${id}/done`)
+  return http.patch(`${apiUrl}/task/${id}/done`);
 }
-
 
 // COMMENT
 export function articleComment(id, data) {
-    return http.post(`${apiUrl}articles/${id}/comment`, data)
+  return http.post(`${apiUrl}articles/${id}/comment`, data);
 }
 
 export function gifComment(id, data) {
-    return http.post(`${apiUrl}gifs/${id}/comment`, data)
+  return http.post(`${apiUrl}gifs/${id}/comment`, data);
 }

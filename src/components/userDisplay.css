@@ -4,9 +4,14 @@
     margin-right: 30px;
 }
 
-/* .user-display button {
-    width: 80%;
-} */
+.user-display button {
+    width: 70%;
+    margin: 3px;
+}
+
+.user-display .delete {
+    background: red;
+}
 
 .users-display {
     max-width: 60%;

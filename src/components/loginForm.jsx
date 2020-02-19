@@ -14,11 +14,9 @@ class Login extends Form {
   };
   schema = getLoginSchema();
   async doSubmit() {
-    console.log("submitted");
     try {
       const response = await auth.login(this.state.data);
       loginWithJwt(response.headers["todo-auth-token"]);
-      // console.log("eyahah");
       window.location = "/";
     } catch (error) {
       const { response: err } = error;

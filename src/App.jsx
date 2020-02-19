@@ -1,30 +1,37 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import * as http from "./services/postsServices";
 import "./App.css";
 import { getCurrentUser } from "./services/authServices";
 import Login from "./components/loginForm";
 import SignUp from "./components/signUp";
 import ProjectForm from "./components/projectForm";
-import Home from "./components/Home";
+import Home from "./components/home";
 import UserDisplay from "./components/usersDisplay";
 import SideNav from "./components/sidenav";
 import ProtectedRoute from "./components/common/protectedRoute";
 
 class App extends Component {
-  state = {};
+  state = {
+    user: {}
+  };
   async componentDidMount() {
-    const user = getCurrentUser();
-    if (user)
+    let user = getCurrentUser();
+    if (user) {
+      user = await http.getUser(user._id);
+      user = user.data;
       this.setState({
         user
       });
+    }
   }
 
   render() {
     return (
       <div>
         {this.state.user && <SideNav user={this.state.user} />}
-        {/* <Header user={this.state.user} /> */}
+        <ToastContainer />
         <Switch>
           <ProtectedRoute
             path="/"
