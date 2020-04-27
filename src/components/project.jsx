@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import * as http from "../services/postsServices";
-import { getDate, daysLeft } from "../utils/formatTime";
-import Tasks from "./tasks";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import * as http from '../services/postsServices';
+import { getDate, daysLeft } from '../utils/formatTime';
+import Tasks from './tasks';
 
 class Project extends Component {
   state = {
-    projects: []
+    projects: [],
   };
 
   async componentDidMount() {
@@ -19,19 +19,19 @@ class Project extends Component {
     try {
       let projects = await http.getAllProjects();
       projects = projects.data;
-      if (user === "my-projects") {
+      if (user === 'my-projects') {
         projects = projects.filter(
-          project => project.owner._id === this.props.user._id
+          (project) => project.owner._id === this.props.user._id
         );
       }
       this.setState({
-        projects: projects
+        projects: projects,
       });
     } catch (error) {}
   };
 
   //  method to delete project
-  deleteProj = async id => {
+  deleteProj = async (id) => {
     try {
       await http.deleteProject(id);
       this.getProjects();
@@ -42,13 +42,13 @@ class Project extends Component {
     const { projects } = this.state;
     const { user } = this.props;
     return (
-      <div className="all-projects">
+      <div className='all-projects'>
         {/* <h2>Wecome home</h2> */}
         {/* displays no project if no project exists */}
         {projects.length === 0 && <p>No project</p>}
 
         {/* render all existing projects */}
-        {projects.map(project => {
+        {projects.map((project) => {
           {
             /* get start and end date in dd/mm/yyyy format */
           }
@@ -68,7 +68,7 @@ class Project extends Component {
                 {/* displays project details */}
                 <h2> {project.name} </h2>
                 <p>
-                  {" "}
+                  {' '}
                   Start date:&ensp;{startDate}&emsp; End date:&ensp;
                   {endDate}
                 </p>
@@ -80,12 +80,12 @@ class Project extends Component {
                 {user.isAdmin && (
                   <React.Fragment>
                     <Link to={`/project/${project._id}`}>
-                      {" "}
-                      <i className="fa fa-pencil-square-o"></i>{" "}
+                      {' '}
+                      <i className='fa fa-pencil-square-o'></i>{' '}
                     </Link>
                     <i
                       onClick={() => this.deleteProj(project._id)}
-                      className="fa fa-trash-o"
+                      className='fa fa-trash-o'
                     ></i>
                   </React.Fragment>
                 )}
