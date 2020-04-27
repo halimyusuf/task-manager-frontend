@@ -1,17 +1,17 @@
-import React from "react";
-import Form from "./common/form";
-import { getTaskSchema } from "../services/formSchema";
-import * as http from "../services/postsServices";
+import React, { useEffect, useState } from 'react';
+import Form from './common/form';
+import { getTaskSchema } from '../services/formSchema';
+import * as http from '../services/postsServices';
 
 class Tasks extends Form {
   state = {
     data: {
-      taskDescription: ""
+      taskDescription: '',
     },
     tasks: [],
-    newTaskId: "",
-    currProjectId: "",
-    errors: []
+    newTaskId: '',
+    currProjectId: '',
+    errors: [],
   };
 
   schema = getTaskSchema();
@@ -24,36 +24,36 @@ class Tasks extends Form {
     try {
       const response = await http.getTasks();
       this.setState({
-        tasks: response.data
+        tasks: response.data,
       });
     } catch (error) {}
   };
 
-  handleNewTask = id => {
+  handleNewTask = (id) => {
     const { newTaskForm } = this.state;
     const { currProjectId } = this.props;
     let bool = newTaskForm ? false : true;
     if (currProjectId !== id) {
       this.setState({
         currProjectId: id,
-        newTaskForm: bool
+        newTaskForm: bool,
       });
     } else {
       this.setState({
-        newTaskForm: bool
+        newTaskForm: bool,
       });
     }
     // this.renderTasks();
   };
 
-  handleDone = async id => {
+  handleDone = async (id) => {
     try {
       await http.markDone(id);
       this.componentDidMount();
     } catch (error) {}
   };
 
-  handleTaskDelete = async id => {
+  handleTaskDelete = async (id) => {
     try {
       await http.deleteTask(id);
       this.componentDidMount();
@@ -63,8 +63,8 @@ class Tasks extends Form {
   renderTaskForm = () => {
     return (
       <form onSubmit={this.handleSubmit}>
-        {this.inputField("taskDescription", "")}
-        {this.renderButton("Add")}
+        {this.inputField('taskDescription', '')}
+        {this.renderButton('Add')}
       </form>
     );
   };
@@ -77,8 +77,8 @@ class Tasks extends Form {
       await http.postTask(data);
       this.getTasks(project);
       this.setState({
-        data: { taskDescription: "" },
-        newTaskForm: false
+        data: { taskDescription: '' },
+        newTaskForm: false,
       });
     } catch (error) {}
   };
@@ -94,9 +94,9 @@ class Tasks extends Form {
         {/* displays "pending" and "done" button if task has not been done yet */}
         {!task.done && (
           <span>
-            <small style={{ color: "red" }}>Pending</small>
+            <small style={{ color: 'red' }}>Pending</small>
             {user._id === owner && (
-              <button onClick={() => this.handleDone(task._id, "done")}>
+              <button onClick={() => this.handleDone(task._id, 'done')}>
                 Done
               </button>
             )}
@@ -104,12 +104,12 @@ class Tasks extends Form {
         )}
         {/*display "done" and "undo" button is task is done */}
         {task.done && (
-          <span className="task-state">
-            <i className="fa fa-check">
+          <span className='task-state'>
+            <i className='fa fa-check'>
               <small>Done</small>
             </i>
             {user._id === owner && (
-              <button onClick={() => this.handleDone(task._id, "undo")}>
+              <button onClick={() => this.handleDone(task._id, 'undo')}>
                 Undo
               </button>
             )}
@@ -124,14 +124,14 @@ class Tasks extends Form {
     let { tasks, newTaskForm, currProjectId } = this.state;
     const { user } = this.props;
     // filters all tasks for a particular project
-    tasks = tasks.filter(task => task.project === id);
-    let newTaskClass = "fa fa-";
-    newTaskClass += newTaskForm ? "minus" : "plus";
+    tasks = tasks.filter((task) => task.project === id);
+    let newTaskClass = 'fa fa-';
+    newTaskClass += newTaskForm ? 'minus' : 'plus';
     return (
       <div>
         <h4>
           {/* tasks head */}
-          <i className="fa fa-tasks"></i> Tasks &emsp;
+          <i className='fa fa-tasks'></i> Tasks &emsp;
           {/* display plus or minus sign if user is an admin depending on the className */}
           {user.isAdmin && (
             <i
@@ -144,11 +144,11 @@ class Tasks extends Form {
         {/* tasks head ends here */}
 
         {/* if no task is present display the text no task yet*/}
-        {tasks.length === 0 && "No task yet"}
+        {tasks.length === 0 && 'No task yet'}
 
         {/* renders projects tasks */}
-        {tasks.map(task => (
-          <div className="task" key={task._id}>
+        {tasks.map((task) => (
+          <div className='task' key={task._id}>
             <p>
               {task.description} &emsp;&emsp;
               {/* handle tasks condition */}
@@ -156,7 +156,7 @@ class Tasks extends Form {
               {user.isAdmin && (
                 <i
                   onClick={() => this.handleTaskDelete(task._id)}
-                  className="fa fa-trash-o"
+                  className='fa fa-trash-o'
                 ></i>
               )}
             </p>
