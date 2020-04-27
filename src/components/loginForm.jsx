@@ -13,6 +13,8 @@ class Login extends Form {
     errors: {}
   };
   schema = getLoginSchema();
+
+  // default method handle the onSubmit function call in a form
   async doSubmit() {
     try {
       const response = await auth.login(this.state.data);
@@ -39,6 +41,7 @@ class Login extends Form {
   render() {
     return (
       <React.Fragment>
+        {/* renders the react form */}
         <div className="auth-form">
           <form onSubmit={this.handleSubmit}>
             {this.inputField("email", "Email")}
