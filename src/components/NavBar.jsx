@@ -10,14 +10,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Logout from './logout';
 import { Link } from 'react-router-dom';
-// import SideNav from './sidenav';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-  },
-  menuButton: {
-    // marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
