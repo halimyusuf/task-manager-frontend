@@ -18,12 +18,12 @@
 
 
 
-.task-state,
+/* .task-state,
 .task button {
   padding: 4px 3px 4px 3px;
-}
+} */
 
-.task {}
+
 
 
 .auth-form {
@@ -71,7 +71,7 @@ input[type=password]:focus {
   outline: none;
 }
 
-button {
+/* button {
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -80,7 +80,7 @@ button {
   cursor: pointer;
   width: 400px;
   opacity: 0.9;
-}
+} */
 
 button:hover {
   opacity: 1;

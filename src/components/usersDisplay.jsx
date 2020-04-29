@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import "./userDisplay.css";
-import * as http from "../services/postsServices";
+import React, { Component } from 'react';
+import './userDisplay.css';
+import * as http from '../services/postsServices';
 
 class UserDisplay extends Component {
   state = {
-    users: []
+    users: [],
   };
   async componentDidMount() {
     this.getUsers();
@@ -14,19 +14,19 @@ class UserDisplay extends Component {
     try {
       const users = await http.getUsers();
       this.setState({
-        users: users.data
+        users: users.data,
       });
     } catch (error) {}
   };
 
-  handleApprove = async id => {
+  handleApprove = async (id) => {
     try {
-      const approve = await http.approveUser(id);
+      await http.approveUser(id);
       this.componentDidMount();
     } catch (error) {}
   };
 
-  handleUserDel = async id => {
+  handleUserDel = async (id) => {
     try {
       await http.deleteUser(id);
       this.getUsers();
@@ -37,9 +37,9 @@ class UserDisplay extends Component {
     let { user: userId } = this.props;
     userId = userId === undefined ? {} : userId;
     return (
-      <div className="users-display">
-        {users.map(user => (
-          <div className="user-display" key={user._id}>
+      <div className='users-display'>
+        {users.map((user) => (
+          <div className='user-display' key={user._id}>
             <h4>Name: {user.name}</h4>
             <p>Email: {user.email}</p>
             <p>Position: {user.position} </p>
@@ -57,7 +57,7 @@ class UserDisplay extends Component {
             )}
             {userId.isAdmin && (
               <button
-                className="delete"
+                className='delete'
                 onClick={() => this.handleUserDel(user._id)}
               >
                 Delete

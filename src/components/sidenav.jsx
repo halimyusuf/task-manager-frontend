@@ -1,79 +1,125 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Logout from "./logout";
-class SideNav extends Component {
-  state = {};
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Logout from './logout';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import NavBar from './NavBar';
+import { ListItemSecondaryAction } from '@material-ui/core';
+const useStyles = makeStyles({
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+});
+const SideNav = ({ user }) => {
+  const classes = useStyles();
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
 
-  myAccFunc() {
-    let x = document.getElementById("demoAcc");
-    if (x.className.indexOf("w3-show") === -1) {
-      x.className += " w3-show";
-      x.previousElementSibling.className += " w3-green";
-    } else {
-      x.className = x.className.replace(" w3-show", "");
-      x.previousElementSibling.className = x.previousElementSibling.className.replace(
-        " w3-green",
-        ""
-      );
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
     }
-  }
 
-  myDropFunc() {
-    let x = document.getElementById("demoDrop");
-    if (x.className.indexOf("w3-show") === -1) {
-      x.className += " w3-show";
-      x.previousElementSibling.className += " w3-green";
-    } else {
-      x.className = x.className.replace(" w3-show", "");
-      x.previousElementSibling.className = x.previousElementSibling.className.replace(
-        " w3-green",
-        ""
-      );
-    }
-  }
-  render() {
-    const { user } = this.props;
-    return (
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <div
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+      })}
+      role='presentation'
+      // onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <i className='fa fa-project'></i>
+            <i className='fa fa-caret-down'></i>
+          </ListItemIcon>
+          <ListItemText primary={'Projects'} />
+        </ListItem>
+        {user.isAdmin && (
+          <ListItem button>
+            <Link to='/project/new' className='w3-bar-item w3-button'>
+              <ListItemText primary='New Project' />
+            </Link>
+          </ListItem>
+        )}
+        <ListItem button>
+          <Link to='/' className='w3-bar-item w3-button'>
+            <ListItemText primary='All projects' />
+          </Link>
+        </ListItem>
+        <ListItem button>
+          <Link to='/my-projects' className='w3-bar-item w3-button'>
+            {' '}
+            <ListItemText primary='My Projects' />{' '}
+          </Link>
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button>
+          <Link to='/users' className='w3-bar-item w3-button'>
+            <ListItemIcon>
+              <i className='fa fa-users'></i>
+              <ListItemText primary='Users' />
+            </ListItemIcon>
+          </Link>
+        </ListItem>
+        <ListItem>
+          <Link to='' className='w3-bar-item w3-button' onClick={Logout}>
+            <ListItemIcon>
+              <i className='fa fa-sign-out'></i>
+            </ListItemIcon>
+            <ListItemText primary='Logout' />
+          </Link>
+        </ListItem>
+      </List>
+    </div>
+  );
+
+  return (
+    <div>
       <div>
-        <div
-          className="w3-sidebar w3-bar-block w3-light-grey w3-card"
-          style={{ width: "160px", position: "fixed", top: "0" }}
-        >
-          <h6>{user.name}</h6>
-          <div className="w3-dropdown-click">
-            <button className="w3-button" onClick={this.myDropFunc}>
-              <i className="fa fa-project"></i> Projects{" "}
-              <i className="fa fa-caret-down"></i>
-            </button>
-            <div
-              id="demoDrop"
-              className="w3-dropdown-content w3-bar-block w3-white w3-card"
-            >
-              {user.isAdmin && (
-                <Link to="/project/new" className="w3-bar-item w3-button">
-                  New Project
-                </Link>
-              )}
-              <Link to="/" className="w3-bar-item w3-button">
-                All Projects
-              </Link>
-              <Link to="/my-projects" className="w3-bar-item w3-button">
-                My Projects
-              </Link>
-            </div>
-          </div>
-
-          <Link to="/users" className="w3-bar-item w3-button">
-            <i className="fa fa-users"></i> Users
-          </Link>
-
-          <Link to="" className="w3-button" onClick={Logout}>
-            <i className="fa fa-sign-out"></i>Logout
-          </Link>
-        </div>
+        <React.Fragment key={'left'}>
+          <NavBar user={user} toggleSide={toggleDrawer} />
+          {/* <Button onClick={toggleDrawer('left', true)}>{'left'}</Button> */}
+          {/* {toggleDrawer('left', true)} */}
+          <SwipeableDrawer
+            anchor={'left'}
+            open={state['left']}
+            onClose={toggleDrawer('left', false)}
+            onOpen={toggleDrawer('left', true)}
+          >
+            {list('left')}
+          </SwipeableDrawer>
+        </React.Fragment>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default SideNav;

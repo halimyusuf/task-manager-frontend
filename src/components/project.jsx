@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import * as http from '../services/postsServices';
@@ -58,8 +58,10 @@ const Project = (props) => {
   };
 
   useEffect(() => {
-    getProjects(modifier);
-  }, modifier);
+    (async () => {
+      await getProjects();
+    })();
+  }, [modifier]);
 
   return (
     <div className='all-projects'>
@@ -73,62 +75,60 @@ const Project = (props) => {
         const endDate = getDate(project.endDate);
         const days = daysLeft(project.startDate, project.endDate);
         return (
-          <React.Fragment>
-            <div
-              className={`project ${days === 0 && `project-red`}`}
-              key={project._id}
-            >
-              <Card className={classes.root} variant='outlined'>
-                <CardContent>
-                  <Typography
-                    className={classes.title}
-                    color='textSecondary'
-                    gutterBottom
-                  >
-                    {project.name}
-                  </Typography>
-                  <Typography variant='body2' component='p'>
-                    {' '}
-                    From:&ensp;{startDate}&emsp; To:&ensp;
-                    {endDate}
-                  </Typography>
-                  <Typography variant='h5' component='h2'>
-                    benevolent
-                  </Typography>
-                  <Typography className={classes.pos} color='textSecondary'>
-                    Days left: &ensp;{days}
-                    <br />
-                    Owner: {project.owner.name}
-                  </Typography>
-                  <Typography variant='body2' component='p'>
-                    description: &nbsp; {project.description}
-                  </Typography>
-                </CardContent>
-                {user.isAdmin && (
-                  <CardActions>
-                    <Button size='small'>
-                      <Link to={`/project/${project._id}`}>
-                        <i className='fa fa-pencil-square-o'></i>{' '}
-                      </Link>
-                    </Button>
-                    <Button>
-                      <i
-                        onClick={() => deleteProj(project._id)}
-                        className='fa fa-trash-o'
-                      ></i>
-                    </Button>
-                  </CardActions>
-                )}
-                <CardContent>
-                  <Tasks
-                    user={props.user}
-                    ownerId={project.owner._id}
-                    id={project._id}
-                  />
-                </CardContent>
-              </Card>
-            </div>
-          </React.Fragment>
+          <div
+            className={`project ${days === 0 && `project-red`}`}
+            key={project._id}
+          >
+            <Card className={classes.root} variant='outlined'>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  color='textSecondary'
+                  gutterBottom
+                >
+                  {project.name}
+                </Typography>
+                <Typography variant='body2' component='p'>
+                  {' '}
+                  From:&ensp;{startDate}&emsp; To:&ensp;
+                  {endDate}
+                </Typography>
+                <Typography variant='h5' component='h2'>
+                  benevolent
+                </Typography>
+                <Typography className={classes.pos} color='textSecondary'>
+                  Days left: &ensp;{days}
+                  <br />
+                  Owner: {project.owner.name}
+                </Typography>
+                <Typography variant='body2' component='p'>
+                  description: &nbsp; {project.description}
+                </Typography>
+              </CardContent>
+              {user.isAdmin && (
+                <CardActions>
+                  <Button size='small'>
+                    <Link to={`/project/${project._id}`}>
+                      <i className='fa fa-pencil-square-o'></i>{' '}
+                    </Link>
+                  </Button>
+                  <Button>
+                    <i
+                      onClick={() => deleteProj(project._id)}
+                      className='fa fa-trash-o'
+                    ></i>
+                  </Button>
+                </CardActions>
+              )}
+              <CardContent>
+                <Tasks
+                  user={props.user}
+                  ownerId={project.owner._id}
+                  id={project._id}
+                />
+              </CardContent>
+            </Card>
+          </div>
         );
       })}
     </div>

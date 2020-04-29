@@ -1,20 +1,21 @@
-import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import * as http from "./services/postsServices";
-import "./App.css";
-import { getCurrentUser } from "./services/authServices";
-import Login from "./components/loginForm";
-import SignUp from "./components/signUp";
-import ProjectForm from "./components/projectForm";
-import Home from "./components/home";
-import UserDisplay from "./components/usersDisplay";
-import SideNav from "./components/sidenav";
-import ProtectedRoute from "./components/common/protectedRoute";
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import * as http from './services/postsServices';
+import './App.css';
+import { getCurrentUser } from './services/authServices';
+import Login from './components/loginForm';
+import SignUp from './components/signUp';
+import ProjectForm from './components/projectForm';
+import Home from './components/home';
+import UserDisplay from './components/usersDisplay';
+import SideNav from './components/sidenav';
+import ProtectedRoute from './components/common/protectedRoute';
+import NavBar from './components/NavBar';
 
 class App extends Component {
   state = {
-    user: {}
+    user: {},
   };
   async componentDidMount() {
     let user = getCurrentUser();
@@ -22,7 +23,7 @@ class App extends Component {
       user = await http.getUser(user._id);
       user = user.data;
       this.setState({
-        user
+        user,
       });
     }
   }
@@ -31,40 +32,43 @@ class App extends Component {
     return (
       <div>
         {this.state.user && <SideNav user={this.state.user} />}
+        {/* <NavBar user={this.state.user} /> */}
         <ToastContainer />
         <Switch>
           <ProtectedRoute
-            path="/"
+            path='/'
             exact
-            component={props => <Home user={this.state.user} {...props} />}
+            component={(props) => <Home user={this.state.user} {...props} />}
           />
-          <Route path="/login" exact render={props => <Login {...props} />} />
+          <Route path='/login' exact render={(props) => <Login {...props} />} />
           <Route
-            path="/register"
+            path='/register'
             exact
-            render={props => <SignUp {...props} />}
+            render={(props) => <SignUp {...props} />}
           />
           <ProtectedRoute
-            path="/project/new"
+            path='/project/new'
             exact
-            component={props => (
+            component={(props) => (
               <ProjectForm user={this.state.user} {...props} />
             )}
           />
           <ProtectedRoute
-            path="/project/:id"
-            component={props => (
+            path='/project/:id'
+            component={(props) => (
               <ProjectForm user={this.state.user} {...props} />
             )}
           />
           <ProtectedRoute
-            path="/users"
-            render={props => <UserDisplay user={this.state.user} {...props} />}
+            path='/users'
+            render={(props) => (
+              <UserDisplay user={this.state.user} {...props} />
+            )}
           />
           <ProtectedRoute
-            path="/:user"
+            path='/:user'
             exact
-            component={props => <Home user={this.state.user} {...props} />}
+            component={(props) => <Home user={this.state.user} {...props} />}
           />
         </Switch>
       </div>

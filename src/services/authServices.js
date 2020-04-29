@@ -1,5 +1,4 @@
 import http from './httpServices';
-import { apiUrl } from '../config.json';
 import decode from 'jwt-decode';
 
 const jwtToken = 'token';

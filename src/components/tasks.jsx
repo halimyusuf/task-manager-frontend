@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Form from './common/form';
 import { getTaskSchema } from '../services/formSchema';
 import * as http from '../services/postsServices';
+// material icon imports
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { List, Chip } from '@material-ui/core';
+import './task.css';
 
 class Tasks extends Form {
   state = {
@@ -12,6 +20,7 @@ class Tasks extends Form {
     newTaskId: '',
     currProjectId: '',
     errors: [],
+    open: false,
   };
 
   schema = getTaskSchema();
@@ -53,6 +62,13 @@ class Tasks extends Form {
     } catch (error) {}
   };
 
+  handleClick = () => {
+    const { open } = this.state;
+    this.setState({
+      open: !open,
+    });
+  };
+
   handleTaskDelete = async (id) => {
     try {
       await http.deleteTask(id);
@@ -83,42 +99,6 @@ class Tasks extends Form {
     } catch (error) {}
   };
 
-  // method to handle task condition, i.e either task is pending or task done
-  handleTaskCondition(task, owner) {
-    const { user } = this.props;
-    {
-      /* if task is not done show done button and the text pending */
-    }
-    return (
-      <React.Fragment>
-        {/* displays "pending" and "done" button if task has not been done yet */}
-        {!task.done && (
-          <span>
-            <small style={{ color: 'red' }}>Pending</small>
-            {user._id === owner && (
-              <button onClick={() => this.handleDone(task._id, 'done')}>
-                Done
-              </button>
-            )}
-          </span>
-        )}
-        {/*display "done" and "undo" button is task is done */}
-        {task.done && (
-          <span className='task-state'>
-            <i className='fa fa-check'>
-              <small>Done</small>
-            </i>
-            {user._id === owner && (
-              <button onClick={() => this.handleDone(task._id, 'undo')}>
-                Undo
-              </button>
-            )}
-          </span>
-        )}
-      </React.Fragment>
-    );
-  }
-
   // method to display all tasks
   renderTasks = (id, owner) => {
     let { tasks, newTaskForm, currProjectId } = this.state;
@@ -129,37 +109,53 @@ class Tasks extends Form {
     newTaskClass += newTaskForm ? 'minus' : 'plus';
     return (
       <div>
-        <h4>
-          {/* tasks head */}
+        <ListSubheader component='div' id='nested-list-subheader'>
           <i className='fa fa-tasks'></i> Tasks &emsp;
-          {/* display plus or minus sign if user is an admin depending on the className */}
           {user.isAdmin && (
             <i
               onClick={() => this.handleNewTask(id)}
               className={newTaskClass}
             ></i>
           )}
-        </h4>
+        </ListSubheader>
 
-        {/* tasks head ends here */}
-
-        {/* if no task is present display the text no task yet*/}
         {tasks.length === 0 && 'No task yet'}
-
-        {/* renders projects tasks */}
         {tasks.map((task) => (
           <div className='task' key={task._id}>
-            <p>
-              {task.description} &emsp;&emsp;
-              {/* handle tasks condition */}
-              {this.handleTaskCondition(task, owner)}
-              {user.isAdmin && (
-                <i
-                  onClick={() => this.handleTaskDelete(task._id)}
-                  className='fa fa-trash-o'
-                ></i>
-              )}
-            </p>
+            <List>
+              <ListItem>
+                <ListItemText
+                  primary={task.description}
+                  secondary={
+                    <Chip
+                      color={`${task.done ? 'primary' : 'secondary'}`}
+                      label={`${task.done ? 'Finished' : 'Pending'}`}
+                      component='p'
+                      size='small'
+                    />
+                  }
+                />
+              </ListItem>
+
+              <ListItemSecondaryAction edge='end'>
+                <div>
+                  {user._id === owner && (
+                    <button
+                      onClick={() =>
+                        this.handleDone(
+                          task._id,
+                          `${task.done ? 'undo' : 'done'}`
+                        )
+                      }
+                    >
+                      {`${task.done ? 'Undo' : 'Done'}`}
+                    </button>
+                  )}
+                </div>
+
+                <DeleteIcon onClick={() => this.handleTaskDelete(task._id)} />
+              </ListItemSecondaryAction>
+            </List>
           </div>
         ))}
         {/* displays tasks form if project id equals task id and condition to display new form is true */}
