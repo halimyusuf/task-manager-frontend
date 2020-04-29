@@ -1,18 +1,18 @@
-/* .all-projects {
+.all-projects {
     margin-top: 100px;
-    margin-left: 250px;
+    margin-left: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly
 }
 
 .project {
-    min-width: 400px;
+    min-width: 600px;
     margin-bottom: 100px;
     padding-left: 20px;
-    border-left: 5px solid green;
+
 }
 
-.project-red {
-    border-left: 5px solid red;
-}
 
 
 .project i {
@@ -45,4 +45,4 @@
 
 .project input {
     border: 2px solid green;
-} */
+}

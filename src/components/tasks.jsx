@@ -8,8 +8,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { List, Chip } from '@material-ui/core';
-import './task.css';
+import { List, Chip, ListItemIcon, Button, Divider } from '@material-ui/core';
 
 class Tasks extends Form {
   state = {
@@ -21,12 +20,19 @@ class Tasks extends Form {
     currProjectId: '',
     errors: [],
     open: false,
+    showTasks: false,
   };
 
   schema = getTaskSchema();
 
   componentDidMount = () => {
     this.getTasks();
+  };
+
+  handleShowTask = () => {
+    this.setState({
+      showTasks: !this.state.showTasks,
+    });
   };
 
   getTasks = async () => {
@@ -101,63 +107,82 @@ class Tasks extends Form {
 
   // method to display all tasks
   renderTasks = (id, owner) => {
-    let { tasks, newTaskForm, currProjectId } = this.state;
+    let { tasks, newTaskForm, currProjectId, showTasks } = this.state;
     const { user } = this.props;
     // filters all tasks for a particular project
     tasks = tasks.filter((task) => task.project === id);
     let newTaskClass = 'fa fa-';
     newTaskClass += newTaskForm ? 'minus' : 'plus';
+    const taskClass = `fa fa-caret-${showTasks ? 'down' : 'up'}`;
     return (
       <div>
-        <ListSubheader component='div' id='nested-list-subheader'>
-          <i className='fa fa-tasks'></i> Tasks &emsp;
-          {user.isAdmin && (
-            <i
-              onClick={() => this.handleNewTask(id)}
-              className={newTaskClass}
-            ></i>
-          )}
-        </ListSubheader>
-
-        {tasks.length === 0 && 'No task yet'}
-        {tasks.map((task) => (
-          <div className='task' key={task._id}>
-            <List>
-              <ListItem>
-                <ListItemText
-                  primary={task.description}
-                  secondary={
-                    <Chip
-                      color={`${task.done ? 'primary' : 'secondary'}`}
-                      label={`${task.done ? 'Finished' : 'Pending'}`}
-                      component='p'
-                      size='small'
-                    />
-                  }
-                />
-              </ListItem>
-
-              <ListItemSecondaryAction edge='end'>
-                <div>
-                  {user._id === owner && (
-                    <button
-                      onClick={() =>
-                        this.handleDone(
-                          task._id,
-                          `${task.done ? 'undo' : 'done'}`
-                        )
+        <List
+          aria-labelledby='nested-list-subheader'
+          subheader={
+            <ListSubheader component='div' id='nested-list-subheader'>
+              <ListItemIcon>
+                <i className='fa fa-tasks'></i>
+              </ListItemIcon>
+              <ListItemText primary='Tasks' />
+              {user.isAdmin && (
+                <i
+                  onClick={() => this.handleNewTask(id)}
+                  className={newTaskClass}
+                ></i>
+              )}
+              <ListItemIcon>
+                <i className={taskClass} onClick={this.handleShowTask}></i>
+              </ListItemIcon>
+            </ListSubheader>
+          }
+        >
+          {showTasks && (
+            <>
+              {tasks.length === 0 && 'No task yet'}
+              {tasks.map((task) => (
+                <div className='task' key={task._id}>
+                  <ListItem>
+                    <ListItemText
+                      className='task-text'
+                      primary={task.description}
+                      secondary={
+                        <Chip
+                          color={`${task.done ? 'primary' : 'secondary'}`}
+                          label={`${task.done ? 'Finished' : 'Pending'}`}
+                          component='p'
+                          size='small'
+                        />
                       }
-                    >
-                      {`${task.done ? 'Undo' : 'Done'}`}
-                    </button>
-                  )}
-                </div>
+                    />
+                  </ListItem>
 
-                <DeleteIcon onClick={() => this.handleTaskDelete(task._id)} />
-              </ListItemSecondaryAction>
-            </List>
-          </div>
-        ))}
+                  <ListItemSecondaryAction edge='end'>
+                    <div>
+                      {user._id === owner && (
+                        <Button
+                          onClick={() =>
+                            this.handleDone(
+                              task._id,
+                              `${task.done ? 'undo' : 'done'}`
+                            )
+                          }
+                        >
+                          {`${task.done ? 'Undo' : 'Done'}`}
+                        </Button>
+                      )}
+                    </div>
+
+                    <DeleteIcon
+                      color='secondary'
+                      onClick={() => this.handleTaskDelete(task._id)}
+                    />
+                  </ListItemSecondaryAction>
+                  <Divider />
+                </div>
+              ))}
+            </>
+          )}
+        </List>
         {/* displays tasks form if project id equals task id and condition to display new form is true */}
         {newTaskForm && currProjectId === id && this.renderTaskForm()}
       </div>

@@ -48,9 +48,7 @@ class ProjectForm extends Form {
           errors: [],
         });
       }
-    } catch (error) {
-      const { response: err } = error;
-    }
+    } catch (error) {}
   }
   schema = getProjectSchema();
   doSubmit = async () => {

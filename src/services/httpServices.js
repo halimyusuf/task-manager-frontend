@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import { getJwt } from './authServices';
 import { apiUrl } from '../config.json';
 
-console.log(apiUrl);
 const apiClient = axios.create({
   baseURL: apiUrl,
   headers: {

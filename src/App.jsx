@@ -11,7 +11,6 @@ import Home from './components/home';
 import UserDisplay from './components/usersDisplay';
 import SideNav from './components/sidenav';
 import ProtectedRoute from './components/common/protectedRoute';
-import NavBar from './components/NavBar';
 
 class App extends Component {
   state = {
@@ -31,7 +30,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        {this.state.user && <SideNav user={this.state.user} />}
+        {this.state.user.name && <SideNav user={this.state.user} />}
         {/* <NavBar user={this.state.user} /> */}
         <ToastContainer />
         <Switch>

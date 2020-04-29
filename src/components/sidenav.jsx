@@ -4,16 +4,12 @@ import Logout from './logout';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import NavBar from './NavBar';
-import { ListItemSecondaryAction } from '@material-ui/core';
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -49,17 +45,17 @@ const SideNav = ({ user }) => {
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
       })}
       role='presentation'
-      // onClick={toggleDrawer(anchor, false)}
+      onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItem button>
+        {/* <ListItem button>
           <ListItemIcon>
             <i className='fa fa-project'></i>
             <i className='fa fa-caret-down'></i>
           </ListItemIcon>
           <ListItemText primary={'Projects'} />
-        </ListItem>
+        </ListItem> */}
         {user.isAdmin && (
           <ListItem button>
             <Link to='/project/new' className='w3-bar-item w3-button'>
@@ -89,7 +85,7 @@ const SideNav = ({ user }) => {
             </ListItemIcon>
           </Link>
         </ListItem>
-        <ListItem>
+        <ListItem button>
           <Link to='' className='w3-bar-item w3-button' onClick={Logout}>
             <ListItemIcon>
               <i className='fa fa-sign-out'></i>
@@ -106,8 +102,6 @@ const SideNav = ({ user }) => {
       <div>
         <React.Fragment key={'left'}>
           <NavBar user={user} toggleSide={toggleDrawer} />
-          {/* <Button onClick={toggleDrawer('left', true)}>{'left'}</Button> */}
-          {/* {toggleDrawer('left', true)} */}
           <SwipeableDrawer
             anchor={'left'}
             open={state['left']}
