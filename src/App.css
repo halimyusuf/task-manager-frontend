@@ -18,12 +18,12 @@
 
 
 
-.task-state,
+/* .task-state,
 .task button {
   padding: 4px 3px 4px 3px;
-}
+} */
 
-.task {}
+
 
 
 .auth-form {
@@ -78,10 +78,15 @@ button {
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 400px;
+  width: 100px;
   opacity: 0.9;
 }
 
 button:hover {
   opacity: 1;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
 }

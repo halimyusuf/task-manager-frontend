@@ -1,20 +1,20 @@
-import React from "react";
-import { getProjectSchema } from "../services/formSchema";
-import Form from "./common/form";
-import * as http from "../services/postsServices";
+import React from 'react';
+import { getProjectSchema } from '../services/formSchema';
+import Form from './common/form';
+import * as http from '../services/postsServices';
 
 class ProjectForm extends Form {
   state = {
     data: {
-      name: "",
-      vendor: "",
-      owner: "",
-      description: "",
-      startDate: "",
-      endDate: ""
+      name: '',
+      vendor: '',
+      owner: '',
+      description: '',
+      startDate: '',
+      endDate: '',
     },
     errors: {},
-    ownerOptions: []
+    ownerOptions: [],
   };
 
   async componentDidMount() {
@@ -33,45 +33,43 @@ class ProjectForm extends Form {
           data.owner = project.owner;
           data.name = project.name;
           data.description = project.description;
-          data.startDate = "";
-          data.endDate = "";
+          data.startDate = '';
+          data.endDate = '';
           data._id = project._id;
           this.setState({
             data,
             ownerOptions: users,
-            errors: []
+            errors: [],
           });
         }
       } else {
         this.setState({
           ownerOptions: users,
-          errors: []
+          errors: [],
         });
       }
-    } catch (error) {
-      const { response: err } = error;
-    }
+    } catch (error) {}
   }
   schema = getProjectSchema();
   doSubmit = async () => {
     try {
-      const response = await http.saveProject(this.state.data);
-      this.props.history.push("/");
+      await http.saveProject(this.state.data);
+      this.props.history.push('/');
     } catch (error) {}
     //   toast.error("Unexpected error");
   };
 
   render() {
     return (
-      <div className="auth-form">
+      <div className='auth-form'>
         <form onSubmit={this.handleSubmit}>
-          {this.inputField("name", "Name")}
-          {this.selectField("owner", "Owner", this.state.ownerOptions)}
-          {this.inputField("vendor", "Vendor")}
-          {this.renderTextArea("description", "Enter project description")}
-          {this.inputField("startDate", "Start", "date")}
-          {this.inputField("endDate", "End", "date")}
-          {this.renderButton("Submit")}
+          {this.inputField('name', 'Name')}
+          {this.selectField('owner', 'Owner', this.state.ownerOptions)}
+          {this.inputField('vendor', 'Vendor')}
+          {this.renderTextArea('description', 'Enter project description')}
+          {this.inputField('startDate', 'Start', 'date')}
+          {this.inputField('endDate', 'End', 'date')}
+          {this.renderButton('Submit')}
         </form>
       </div>
     );

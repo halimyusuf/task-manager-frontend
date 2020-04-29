@@ -1,107 +1,137 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import * as http from "../services/postsServices";
-import { getDate, daysLeft } from "../utils/formatTime";
-import Tasks from "./tasks";
+import React, { useState, useEffect } from 'react';
 
-class Project extends Component {
-  state = {
-    projects: []
-  };
+import { Link } from 'react-router-dom';
+import * as http from '../services/postsServices';
+import { getDate, daysLeft } from '../utils/formatTime';
+import Tasks from './tasks';
+// material icon imports
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
-  async componentDidMount() {
-    this.getProjects();
-  }
+const styles = makeStyles({
+  root: {
+    minWidth: 275,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+});
 
-  //   method to get projects
-  getProjects = async () => {
-    const user = this.props.param.user;
+const Project = (props) => {
+  const [projects, setProject] = useState([]);
+  const [modifier, setModifier] = useState(0);
+  const classes = styles();
+  const { user } = props;
+  const getProjects = async () => {
+    const user = props.param.user;
     try {
       let projects = await http.getAllProjects();
       projects = projects.data;
-      if (user === "my-projects") {
+      if (user === 'my-projects') {
         projects = projects.filter(
-          project => project.owner._id === this.props.user._id
+          (project) => project.owner._id === props.user._id
         );
       }
-      this.setState({
-        projects: projects
-      });
+      setProject(projects);
     } catch (error) {}
   };
 
   //  method to delete project
-  deleteProj = async id => {
+  const deleteProj = async (id) => {
     try {
       await http.deleteProject(id);
-      this.getProjects();
+      const inc = modifier + 1;
+      setModifier(inc);
     } catch (error) {}
   };
 
-  render() {
-    const { projects } = this.state;
-    const { user } = this.props;
-    return (
-      <div className="all-projects">
-        {/* <h2>Wecome home</h2> */}
-        {/* displays no project if no project exists */}
-        {projects.length === 0 && <p>No project</p>}
+  useEffect(() => {
+    (async () => {
+      await getProjects();
+    })();
+  }, [modifier]);
 
-        {/* render all existing projects */}
-        {projects.map(project => {
-          {
-            /* get start and end date in dd/mm/yyyy format */
-          }
-          const startDate = getDate(project.startDate);
-          const endDate = getDate(project.endDate);
-          {
-            /* gets the days btw current date and end date */
-          }
-          const days = daysLeft(project.startDate, project.endDate);
-          return (
-            <React.Fragment>
-              {/* the classNmae "project-red" marks the div left border red if days left is zero */}
-              <div
-                className={`project ${days === 0 && `project-red`}`}
-                key={project._id}
-              >
-                {/* displays project details */}
-                <h2> {project.name} </h2>
-                <p>
-                  {" "}
-                  Start date:&ensp;{startDate}&emsp; End date:&ensp;
+  return (
+    <div className='all-projects'>
+      {/* <h2>Wecome home</h2> */}
+      {/* displays no project if no project exists */}
+      {projects.length === 0 && <p>No project</p>}
+
+      {/* render all existing projects  */}
+      {projects.map((project) => {
+        const startDate = getDate(project.startDate);
+        const endDate = getDate(project.endDate);
+        const days = daysLeft(project.startDate, project.endDate);
+        return (
+          <div
+            className={`project ${days === 0 && `project-red`}`}
+            key={project._id}
+          >
+            <Card className={classes.root} variant='outlined'>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  color='textSecondary'
+                  gutterBottom
+                >
+                  {project.name}
+                </Typography>
+                <Typography variant='body2' component='p'>
+                  {' '}
+                  From:&ensp;{startDate}&emsp; To:&ensp;
                   {endDate}
-                </p>
-                <p>Days left: &ensp;{days}</p>
-                <p>Owner: {project.owner.name} </p>
-                <p>description: &nbsp; {project.description}</p>
-
-                {/* if user is an admin display edit and delete button*/}
-                {user.isAdmin && (
-                  <React.Fragment>
+                </Typography>
+                <Typography variant='h5' component='h2'>
+                  benevolent
+                </Typography>
+                <Typography className={classes.pos} color='textSecondary'>
+                  Days left: &ensp;{days}
+                  <br />
+                  Owner: {project.owner.name}
+                </Typography>
+                <Typography variant='body2' component='p'>
+                  description: &nbsp; {project.description}
+                </Typography>
+              </CardContent>
+              {user.isAdmin && (
+                <CardActions>
+                  <Button size='small'>
                     <Link to={`/project/${project._id}`}>
-                      {" "}
-                      <i className="fa fa-pencil-square-o"></i>{" "}
+                      <i className='fa fa-pencil-square-o'></i>{' '}
                     </Link>
+                  </Button>
+                  <Button>
                     <i
-                      onClick={() => this.deleteProj(project._id)}
-                      className="fa fa-trash-o"
+                      onClick={() => deleteProj(project._id)}
+                      className='fa fa-trash-o'
                     ></i>
-                  </React.Fragment>
-                )}
-
-                {/* Component to get Tasks */}
+                  </Button>
+                </CardActions>
+              )}
+              <CardContent>
                 <Tasks
-                  user={this.props.user}
+                  user={props.user}
                   ownerId={project.owner._id}
                   id={project._id}
                 />
-              </div>
-            </React.Fragment>
-          );
-        })}
-      </div>
-    );
-  }
-}
+              </CardContent>
+            </Card>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 export default Project;
