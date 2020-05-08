@@ -1,16 +1,13 @@
 .all-projects {
     margin-top: 100px;
-    margin-left: 50px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly
+    justify-content: center
 }
 
 .project {
-    min-width: 600px;
+    width: 70%;
     margin-bottom: 100px;
-    padding-left: 20px;
-
 }
 
 

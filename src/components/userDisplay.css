@@ -1,5 +1,5 @@
 .user-display {
-    display: inline-block;
+    width: 250px;
     margin-bottom: 30px;
     margin-right: 30px;
 }
@@ -14,7 +14,9 @@
 }
 
 .users-display {
-    max-width: 60%;
-    margin-left: 300px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
     margin-top: 70px
 }

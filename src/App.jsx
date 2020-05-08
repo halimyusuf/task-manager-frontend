@@ -7,7 +7,7 @@ import { getCurrentUser } from './services/authServices';
 import Login from './components/loginForm';
 import SignUp from './components/signUp';
 import ProjectForm from './components/projectForm';
-import Home from './components/home';
+import Home from './components/Home';
 import UserDisplay from './components/usersDisplay';
 import SideNav from './components/sidenav';
 import ProtectedRoute from './components/common/protectedRoute';

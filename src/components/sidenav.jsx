@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logout from './logout';
+import Logout from './Logout';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -89,8 +89,8 @@ const SideNav = ({ user }) => {
           <Link to='' className='w3-bar-item w3-button' onClick={Logout}>
             <ListItemIcon>
               <i className='fa fa-sign-out'></i>
+              <ListItemText primary='Logout' />
             </ListItemIcon>
-            <ListItemText primary='Logout' />
           </Link>
         </ListItem>
       </List>
