@@ -120,9 +120,9 @@ class Tasks extends Form {
           aria-labelledby='nested-list-subheader'
           subheader={
             <ListSubheader component='div' id='nested-list-subheader'>
-              <ListItemIcon>
+              {/* <ListItemIcon>
                 <i className='fa fa-tasks'></i>
-              </ListItemIcon>
+              </ListItemIcon> */}
               <ListItemText primary='Tasks' />
               {user.isAdmin && (
                 <i

@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import Joi from "joi-browser";
-import Input from "./input";
-import Select from "./select";
-import TextArea from "./textarea";
+import React, { Component } from 'react';
+import Joi from 'joi-browser';
+import Input from './input';
+import Select from './select';
+import TextArea from './textarea';
 
 class Form extends Component {
   state = {
     data: {},
-    errors: {}
+    errors: {},
   };
 
   validate = () => {
     const result = Joi.validate(this.state.data, this.schema, {
-      abortEarly: false
+      abortEarly: false,
     });
     if (!result.error) return null;
     const errors = {};
@@ -22,11 +22,11 @@ class Form extends Component {
     return errors;
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const errors = this.validate();
     this.setState({
-      errors: errors || {}
+      errors: errors || {},
     });
     if (errors) return;
     this.doSubmit();
@@ -39,22 +39,24 @@ class Form extends Component {
     return error ? error.details[0].message : null;
   };
 
-  handleChange = ({ currentTarget: input }) => {
+  handleChange = (e) => {
+    const { currentTarget: input } = e;
     let value = input.value;
     if (input.files) {
       this.setState({
-        image: input.files[0]
+        image: input.files[0],
       });
     }
     const errors = { ...this.state.errors };
     const error = this.validateProperty(input.name, value);
     if (error) errors[input.name] = error;
     else delete errors[input.name];
+
     const data = { ...this.state.data };
     data[input.name] = value;
     this.setState({
       data,
-      errors
+      errors,
     });
   };
 
@@ -76,7 +78,7 @@ class Form extends Component {
     );
   }
 
-  inputField(name, label, type = "text", placeholder = "") {
+  inputField(name, label, type = 'text', placeholder = '') {
     const { data, errors } = this.state;
     return (
       <Input

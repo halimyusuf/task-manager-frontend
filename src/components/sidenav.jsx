@@ -80,7 +80,7 @@ const SideNav = ({ user }) => {
         <ListItem button>
           <Link to='/users' className='w3-bar-item w3-button'>
             <ListItemIcon>
-              <i className='fa fa-users'></i>
+              {/* <i className='fa fa-users'></i> */}
               <ListItemText primary='Users' />
             </ListItemIcon>
           </Link>
@@ -88,7 +88,7 @@ const SideNav = ({ user }) => {
         <ListItem button>
           <Link to='' className='w3-bar-item w3-button' onClick={Logout}>
             <ListItemIcon>
-              <i className='fa fa-sign-out'></i>
+              {/* <i className='fa fa-sign-out'></i> */}
               <ListItemText primary='Logout' />
             </ListItemIcon>
           </Link>
