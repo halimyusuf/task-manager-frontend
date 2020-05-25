@@ -33,7 +33,13 @@ apiClient.interceptors.response.use(null, (error) => {
     error.response.status <= 500;
   if (!expectedError) {
     logger.log(error);
-    toast.error('An unexpected error occured');
+    if (error.message === 'Network Error') {
+      toast.error('Network error');
+      NProgress.done();
+    } else {
+      toast.error('An unexpected error occured');
+      console.log(error.message);
+    }
   }
 
   return Promise.reject(error);
