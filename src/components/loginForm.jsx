@@ -3,6 +3,9 @@ import auth, { loginWithJwt } from '../services/authServices';
 import { getLoginSchema } from '../services/formSchema';
 import Form from './common/form';
 import { Link } from 'react-router-dom';
+import { Paper } from '@material-ui/core';
+import { toast } from 'react-toastify';
+import NProgress from 'nprogress';
 
 class Login extends Form {
   state = {
@@ -25,19 +28,19 @@ class Login extends Form {
       let errors = { ...this.state.errors };
       if (err) {
         if (err.status === 401) {
+          NProgress.done();
           errors.password = 'User pending approval';
           return this.setState({
             errors,
           });
         } else {
+          NProgress.done();
           errors.password = 'Incorrect email or password';
           return this.setState({
             errors,
           });
         }
-      } else {
       }
-      //   toast.error("Unexpected error");
     }
   }
 
@@ -45,13 +48,17 @@ class Login extends Form {
     return (
       <React.Fragment>
         {/* renders the react form */}
+
         <div className='auth-form'>
-          <form onSubmit={this.handleSubmit}>
-            {this.inputField('email', 'Email')}
-            {this.inputField('password', 'Password')}
-            {this.renderButton('Login')}
-          </form>
-          <Link to='/register'>Register</Link>
+          <Paper className='paper'>
+            <form noValidate autoComplete='off' onSubmit={this.handleSubmit}>
+              {this.inputField('email', 'Email')}
+              {this.inputField('password', 'Password')}
+              {this.renderButton('Login')}
+            </form>
+            <span>Don't have an account? ,</span>
+            <Link to='/register'>Register</Link>
+          </Paper>
         </div>
       </React.Fragment>
     );
