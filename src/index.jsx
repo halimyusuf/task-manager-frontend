@@ -5,6 +5,7 @@ import App from './App';
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'nprogress/nprogress.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { HashRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
