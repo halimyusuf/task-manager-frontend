@@ -32,7 +32,9 @@ class App extends Component {
       <div>
         {this.state.user.name && <SideNav user={this.state.user} />}
         {/* <NavBar user={this.state.user} /> */}
-        <ToastContainer />
+        <div>
+          <ToastContainer />
+        </div>
         <Switch>
           <ProtectedRoute
             path='/'
